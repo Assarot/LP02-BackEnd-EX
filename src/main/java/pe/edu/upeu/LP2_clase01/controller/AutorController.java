@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import pe.edu.upeu.LP2_clase01.service.AutorService;
 
 @RestController
 @RequestMapping("/api/autores")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AutorController {
 	@Autowired
 	private AutorService autorService;
@@ -76,7 +78,7 @@ public class AutorController {
 	public ResponseEntity<?> updateAutor(@PathVariable("id") Long id, @Valid @RequestBody Autor cat){
 
 			Optional<Autor> c = autorService.read(id);
-			if(c.isEmpty()) {
+			if(c.get().getId()>0) {
 				return new ResponseEntity<>(autorService.update(cat), HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

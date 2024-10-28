@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import pe.edu.upeu.LP2_clase01.service.EditorialService;
 
 @RestController
 @RequestMapping("/api/editoriales")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EditorialController {
 	@Autowired
 	private EditorialService editorialService;
@@ -77,7 +79,7 @@ public class EditorialController {
 	public ResponseEntity<?> updateEditorial(@PathVariable("id") Long id, @Valid @RequestBody Editorial cat){
 
 			Optional<Editorial> c = editorialService.read(id);
-			if(c.isEmpty()) {
+			if(c.get().getId()>0) {
 				return new ResponseEntity<>(editorialService.update(cat), HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

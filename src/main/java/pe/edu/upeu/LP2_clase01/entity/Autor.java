@@ -34,7 +34,4 @@ public class Autor {
 	private String pais;
 	@Column(name="estado")
 	private char estado;
-	
-	@ManyToMany(mappedBy = "autores")
-	private Set<Libro> books = new HashSet<>();
 }

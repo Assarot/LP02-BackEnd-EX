@@ -50,7 +50,9 @@ public class Libro {
 	@JoinColumn(name="editorial_id", nullable = false)
 	private Editorial editorial;
 	
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JsonIgnore
 	@JoinTable(
 			name="libro_autor",
 			joinColumns = @JoinColumn(name="libro_id", referencedColumnName = "id"),
